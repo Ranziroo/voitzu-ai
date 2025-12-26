@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import ChatSidebar from "@/components/ChatSidebar";
 import AuthButtons from "@/components/AuthButtons";
-import { isLoggedIn } from "@/app/lib/auth";
+// import { isLoggedIn } from "@/app/lib/auth";
 import ChatInput from "@/app/chat/components/ChatInput";
 import TextAnimation from "@/app/chat/components/TextAnimation";
 
@@ -22,7 +22,7 @@ export default function ChatPage() {
   const chatRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    setLoggedIn(isLoggedIn());
+    // setLoggedIn(isLoggedIn());
   }, []);
 
   // auto scroll saat message baru
@@ -174,7 +174,7 @@ export default function ChatPage() {
       </div>
 
       {/* SIDEBAR */}
-      {loggedIn && <ChatSidebar />}
+      {/* {loggedIn && <ChatSidebar />} */}
     </main>
   );
 }
