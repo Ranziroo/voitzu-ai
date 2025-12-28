@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState, useRef } from "react";
 import ChatSidebar from "@/components/ChatSidebar";
 import AuthButtons from "@/components/AuthButtons";
