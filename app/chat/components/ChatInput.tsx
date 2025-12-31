@@ -28,19 +28,19 @@ export default function ChatInput({
   const [showActions, setShowActions] = useState(false);
 
   const handleSend = () => {
-  const textarea = textareaRef.current;
-  if (!textarea) return;
+    const textarea = textareaRef.current;
+    if (!textarea) return;
 
-  const value = textarea.value.trim();
-  if (!value) return;
+    const value = textarea.value.trim();
+    if (!value) return;
 
-  onSend(value);
+    onSend(value);
 
-  // reset textarea
-  textarea.value = "";
-  textarea.style.height = "40px";
-  setExpanded(false);
-};
+    // reset textarea
+    textarea.value = "";
+    textarea.style.height = "40px";
+    setExpanded(false);
+  };
 
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [expanded, setExpanded] = useState(false);
@@ -70,7 +70,7 @@ export default function ChatInput({
 
   // handle klik diluar panel +
   useEffect(() => {
-    const close =  () => setShowActions(false);
+    const close = () => setShowActions(false);
     if (showActions) {
       document.addEventListener("click", close);
     }
@@ -91,27 +91,27 @@ export default function ChatInput({
     >
       {/* BUTTON + */}
       <button
-      ref={plusRef}
-      onClick={(e) => {
-        e.stopPropagation();
-        setShowActions((v) => !v);
-      }} 
-      className="absolute left-2 bottom-2 z-10 w-10 h-10 rounded-full text-xl 
+        ref={plusRef}
+        onClick={(e) => {
+          e.stopPropagation();
+          setShowActions((v) => !v);
+        }}
+        className="absolute left-2 bottom-2 z-10 w-10 h-10 rounded-full text-xl 
       flex items-center justify-center
       text-gray-300 hover:text-white hover:bg-white/10">
         +
       </button>
 
-{showActions && plusRef.current && (
-  <div
-    onClick={(e) => e.stopPropagation()}
-    style={{
-      position: "fixed",
-      left: plusRef.current.getBoundingClientRect().left - 5,
-      top: plusRef.current.getBoundingClientRect().top - 12,
-      transform: "translateY(-100%)",
-    }}
-    className="
+      {showActions && plusRef.current && (
+        <div
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            position: "fixed",
+            left: plusRef.current.getBoundingClientRect().left - 5,
+            top: plusRef.current.getBoundingClientRect().top - 12,
+            transform: "translateY(-100%)",
+          }}
+          className="
       z-[9999]
       w-48
       bg-[#1f1f1f]
@@ -120,24 +120,24 @@ export default function ChatInput({
       p-2
       flex flex-col gap-1
     "
-  >
-    {/* Upload Image */}
-    <label className="flex items-center gap-3 px-3 py-2 rounded-xl
+        >
+          {/* Upload Image */}
+          <label className="flex items-center gap-3 px-3 py-2 rounded-xl
       text-sm text-gray-200 cursor-pointer hover:bg-white/10">
-      <i className="fa-regular fa-image text-lg"></i>
-      Upload Image
-      <input type="file" accept="image/*" hidden />
-    </label>
+            <i className="fa-regular fa-image text-lg"></i>
+            Upload Image
+            <input type="file" accept="image/*" hidden />
+          </label>
 
-    {/* Upload Icon */}
-    <label className="flex items-center gap-3 px-3 py-2 rounded-xl
+          {/* Upload Icon */}
+          <label className="flex items-center gap-3 px-3 py-2 rounded-xl
       text-sm text-gray-200 cursor-pointer hover:bg-white/10">
-      <i className="fa-solid fa-icons text-lg"></i>
-      Upload Icon
-      <input type="file" accept=".svg,.png" hidden />
-    </label>
-  </div>
-)}
+            <i className="fa-solid fa-icons text-lg"></i>
+            Upload Icon
+            <input type="file" accept=".svg,.png" hidden />
+          </label>
+        </div>
+      )}
 
       {/* TEXTAREA */}
       <textarea
@@ -148,7 +148,7 @@ export default function ChatInput({
           const isDesktop = window.innerWidth >= 1024;
           if (!isDesktop) return;
 
-          if (e.key ===  "Enter" && !e.shiftKey) {
+          if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             handleSend();
           }
@@ -160,10 +160,9 @@ export default function ChatInput({
           py-2 outline-none resize-none overflow-y-auto
           rounded-tl-4xl rounded-bl-4xl
           transition-[height] duration-200 ease-in-out
-          ${
-            expanded
-              ? "pl-5 pr-1 mb-2 w-[99%]"
-              : "absolute bottom-2 w-full pl-13 pr-18"
+          ${expanded
+            ? "pl-5 pr-1 mb-2 w-[99%]"
+            : "absolute bottom-2 w-full pl-13 pr-18"
           }
         `}
       />
@@ -184,7 +183,7 @@ export default function ChatInput({
 
       {/* SEND — PURPLE + INDIGO */}
       <button
-      onClick={handleSend}
+        onClick={handleSend}
         className="
           absolute right-2 bottom-2 z-10
           w-10 h-10 rounded-full
