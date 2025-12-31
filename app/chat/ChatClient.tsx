@@ -95,7 +95,9 @@ export default function ChatClient() {
 
                   <div
                     className={`
-                      max-w-full sm:max-w-[75%]
+                      w-fit
+                      max-w-[85%] sm:max-w-[75%]
+                      break-all whitespace-pre-wrap
                       px-4 py-2 text-sm leading-relaxed
                       break-words whitespace-pre-wrap
                       ${

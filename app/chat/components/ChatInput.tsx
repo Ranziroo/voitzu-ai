@@ -25,6 +25,7 @@ export default function ChatInput({
 }: {
   onSend: (text: string) => void;
 }) {
+  const [showActions, setShowActions] = useState(false);
 
   const handleSend = () => {
   const textarea = textareaRef.current;
@@ -67,6 +68,19 @@ export default function ChatInput({
     return () => textarea.removeEventListener("input", handleInput);
   }, []);
 
+  // handle klik diluar panel +
+  useEffect(() => {
+    const close =  () => setShowActions(false);
+    if (showActions) {
+      document.addEventListener("click", close);
+    }
+
+    return () => document.removeEventListener("click", close);
+  }, [showActions]);
+
+  // panel +
+  const plusRef = useRef<HTMLButtonElement | null>(null);
+
   return (
     <div
       className={`
@@ -76,24 +90,76 @@ export default function ChatInput({
       `}
     >
       {/* BUTTON + */}
-      <button className="absolute left-2 bottom-2 z-10 w-10 h-10 rounded-full text-xl 
+      <button
+      ref={plusRef}
+      onClick={(e) => {
+        e.stopPropagation();
+        setShowActions((v) => !v);
+      }} 
+      className="absolute left-2 bottom-2 z-10 w-10 h-10 rounded-full text-xl 
       flex items-center justify-center
       text-gray-300 hover:text-white hover:bg-white/10">
         +
       </button>
+
+{showActions && plusRef.current && (
+  <div
+    onClick={(e) => e.stopPropagation()}
+    style={{
+      position: "fixed",
+      left: plusRef.current.getBoundingClientRect().left - 5,
+      top: plusRef.current.getBoundingClientRect().top - 12,
+      transform: "translateY(-100%)",
+    }}
+    className="
+      z-[9999]
+      w-48
+      bg-[#1f1f1f]
+      rounded-2xl
+      shadow-xl shadow-black/40
+      p-2
+      flex flex-col gap-1
+    "
+  >
+    {/* Upload Image */}
+    <label className="flex items-center gap-3 px-3 py-2 rounded-xl
+      text-sm text-gray-200 cursor-pointer hover:bg-white/10">
+      <i className="fa-regular fa-image text-lg"></i>
+      Upload Image
+      <input type="file" accept="image/*" hidden />
+    </label>
+
+    {/* Upload Icon */}
+    <label className="flex items-center gap-3 px-3 py-2 rounded-xl
+      text-sm text-gray-200 cursor-pointer hover:bg-white/10">
+      <i className="fa-solid fa-icons text-lg"></i>
+      Upload Icon
+      <input type="file" accept=".svg,.png" hidden />
+    </label>
+  </div>
+)}
 
       {/* TEXTAREA */}
       <textarea
         ref={textareaRef}
         rows={1}
         placeholder="Ask anything..."
+        onKeyDown={(e) => {
+          const isDesktop = window.innerWidth >= 1024;
+          if (!isDesktop) return;
+
+          if (e.key ===  "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            handleSend();
+          }
+        }}
         className={`
           chat-scroll
           bg-[#2f2f2f]
-          min-h-[40px] max-h-[140px]
+          min-h-[40px] max-h-[75px] sm:max-h-[110px]
           py-2 outline-none resize-none overflow-y-auto
           rounded-tl-4xl rounded-bl-4xl
-          transition-all duration-200 ease-in-out
+          transition-[height] duration-200 ease-in-out
           ${
             expanded
               ? "pl-5 pr-1 mb-2 w-[99%]"
